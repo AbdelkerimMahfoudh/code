@@ -2,4 +2,4 @@ import pandas as pd
 
 poke = pd.read_csv('pokemon_data.csv')
 
-print(poke.head(7))
+print(poke.head(5))
