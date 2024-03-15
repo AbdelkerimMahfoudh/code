@@ -3,11 +3,14 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-date = "Please enter a date in the following format MM/DD/YYYY : "
-page = requests.get(f"https://www.yallakora.com/Match-Center/?date={date}")
+
+page = requests.get("https://web.archive.org/web/20220302234213/http://www.rimnow.com/")
 
 def main (page) :
-    src = page.content
-    print(src)
 
+    src = page.content
+    soup = BeautifulSoup(src, "lxml")
+    print(soup)
+
+main(page)
  
