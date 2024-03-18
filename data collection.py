@@ -9,7 +9,7 @@ page = requests.get("https://web.archive.org/web/20220302234213/http://www.rimno
 def main (page) :
 
     src = page.content
-    # soup = BeautifulSoup(src, "lxml")
+    soup = BeautifulSoup(src, "lxml")
     print(soup)
 
 main(page)
