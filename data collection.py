@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import csv
 
 
-page = requests.get("https://web.archive.org/web/20220302234213/http://www.rimnow.com/")
+page = requests.get("https://www.kickstarter.com/discover/advanced?woe_id=24865670&sort=popularity&seed=2852995&page=12&next_page_cursor=")
 
 def main (page) :
 
