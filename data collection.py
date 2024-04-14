@@ -10,10 +10,9 @@ def main (page) :
 
     src = page.content
     soup = BeautifulSoup(src, "lxml")
-    
 
-    name = soup.find_all("span", {'class': 'card-title'})
+    name = soup.find_all("span", {"class": "card-title"})
     print(name)
-
+   
 main(page)
  
