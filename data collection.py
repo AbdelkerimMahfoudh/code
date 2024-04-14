@@ -10,7 +10,9 @@ def main (page) :
 
     src = page.content
     soup = BeautifulSoup(src, "lxml")
-    print(soup)
+    projects = []
+    
+
 
 main(page)
  
