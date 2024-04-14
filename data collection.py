@@ -10,9 +10,10 @@ def main (page) :
 
     src = page.content
     soup = BeautifulSoup(src, "lxml")
-    projects = []
     
 
+    name = soup.find_all("span", {'class': 'card-title'})
+    print(name)
 
 main(page)
  
