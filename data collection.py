@@ -11,7 +11,7 @@ def main (page) :
     src = page.content
     soup = BeautifulSoup(src, "lxml")
 
-    name = soup.find_all("span", {"class": "card-title"})
+    name = soup.find_all("div", {"class": "flex"})
     print(name)
    
 main(page)
