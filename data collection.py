@@ -7,8 +7,11 @@ result = requests.get(url).text
 doc = BeautifulSoup(result,"html.parser")
 
 divs = doc.div
-min = divs.contents
-print(list(min[1].descendants))
+src = divs.contents
+for div in src[:4]:
+    name = div.contents[1:3]
+    print(name)
+
    
 
 # def main (page) :
