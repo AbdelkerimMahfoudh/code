@@ -10,12 +10,11 @@ def main (page) :
 
     src = page.content
     soup = BeautifulSoup(src, "lxml")
-    name = soup.find("div", {'class' : 'jss40'})
-    print(name)
-    # def get_info (name):
-    #     title = name.contents[1]
-    #     print(title)
-    # get_info(name)    
-
+    projects = soup.find_all(class_="MuiGrid-root")
+    def get_prj_info(projects):
+        project_name = projects.contents
+        print(project_name)
+   
+    get_prj_info(projects[0])
 main(page)
  
