@@ -1,28 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
-import csv
+import pandas as pd
 
-url = "https://www.thundafund.africa/discover"
-result = requests.get(url).text
-doc = BeautifulSoup(result,"html.parser")
+df = pd.read_csv(r"C:\Users\HP\Downloads\Compressed\Kickstarter_2024-04-15T06_47_07_694Z\Kickstarter.csv")
+df = df.drop(columns=["fx_rate","staff_pick","country","country_displayable_name","created_at","creator","currency","currency_symbol","currency_trailing_code","current_currency","deadline","disable_communication","goal","id","is_disliked","is_launched","is_liked","is_starrable","launched_at","location","name","percent_funded","photo","pledged","prelaunch_activated","profile","slug","source_url","spotlight","staff_pick","state","state_changed_at","static_usd_rate","usd_type","video"])
 
-divs = doc.div
-src = divs.contents
-for div in src[:4]:
-    name = div.contents[1:3]
-    print(name)
-
-   
-
-# def main (page) :
-
-#     src = page.content
-#     soup = BeautifulSoup(src, "lxml")
-#     projects = soup.find_all(class_="MuiGrid-root")
-#     def get_prj_info(projects):
-#         project_name = projects.contents
-#         print(project_name)
-   
-#     get_prj_info(projects[0])
-# main(page)
- 
+print(df)
