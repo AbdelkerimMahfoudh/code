@@ -50,7 +50,7 @@ cm = confusion_matrix(y_test, y_pred)
 tn = cm[0][0]  # True Negatives (correctly predicted failures)
 fp = cm[0][1]  # False Positives (failures predicted as success)
 specificity = tn / (tn + fp)
-print("Specificity:", specificity)
+
 print("Confusion Matrix:\n", cm)
 print("Accuracy:", accuracy)
 print("F1-Score:", f1)
