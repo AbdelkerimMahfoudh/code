@@ -8,7 +8,7 @@ from category_encoders.target_encoder import TargetEncoder
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
 from xgboost import XGBClassifier
 from xgboost import plot_importance
-
+import joblib
 df = pd.read_csv(r"C:\Users\HP\Documents\Master's thesis\collected data\collected data.csv")
 
 categorical_features = ["Project_name", "country"]
@@ -24,7 +24,7 @@ X = df.drop(columns='state')
 y = df['state']  
 le = LabelEncoder()
 y = le.fit_transform(y)
-y = y.replace({"failed": 0, "successful": 1})
+
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
@@ -70,3 +70,5 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
+model = opt.best_estimator_
+joblib.dump(model, "prediction.model")
