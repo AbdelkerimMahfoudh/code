@@ -7,7 +7,8 @@ from skopt.space import Real, Categorical, Integer
 from category_encoders.target_encoder import TargetEncoder
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
 from xgboost import XGBClassifier
-from xgboost import plot_importance
+import seaborn as sns
+import matplotlib.pyplot as plt
 import joblib
 df = pd.read_csv(r"C:\Users\HP\Documents\Master's thesis\collected data\collected data.csv")
 
@@ -70,6 +71,11 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
+ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
+ax.set_title('XGBoost Confusion Matrix')
+ax.set_xlabel('Predicted Label')
+ax.set_ylabel('True Label')
+plt.show()
 # model = opt.best_estimator_
 # joblib.dump(model, "prediction.model")
 
