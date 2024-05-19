@@ -4,7 +4,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression  # Import LogisticRegression
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 df = pd.read_csv(r"C:\Users\HP\Documents\Master's thesis\collected data\collected data.csv")
 
 categorical_features = ["Project_name", "country"]
@@ -48,3 +49,8 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
+ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
+ax.set_title('Logistic_Regression Confusion Matrix')
+ax.set_xlabel('Predicted Label')
+ax.set_ylabel('True Label')
+plt.show()

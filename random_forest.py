@@ -5,6 +5,8 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from category_encoders.target_encoder import TargetEncoder
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
 from sklearn.pipeline import Pipeline
+import seaborn as sns
+import matplotlib.pyplot as plt
 from joblib import dump
 
 
@@ -56,7 +58,7 @@ print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
 ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
-ax.set_title('XGBoost Confusion Matrix')
+ax.set_title('Random_Forest Confusion Matrix')
 ax.set_xlabel('Predicted Label')
 ax.set_ylabel('True Label')
 plt.show()
