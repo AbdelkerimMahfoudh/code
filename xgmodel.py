@@ -70,11 +70,8 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
-model = opt.best_estimator_
-joblib.dump(model, "prediction.model")
+# model = opt.best_estimator_
+# joblib.dump(model, "prediction.model")
 
 
 
-
-df_dropna = df.dropna()
-df_dropna_cols = df.dropna(thresh=0.8 * len(df), axis=1)
