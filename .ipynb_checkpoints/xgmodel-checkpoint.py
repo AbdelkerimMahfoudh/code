@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder, StandardScaler  
+from sklearn.preprocessing import LabelEncoder, StandardScaler  # Import StandardScaler
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 from category_encoders.target_encoder import TargetEncoder
@@ -72,9 +72,3 @@ print("AUC-ROC:", auc)
 print("Recall:", recall)
 model = opt.best_estimator_
 joblib.dump(model, "prediction.model")
-
-
-
-
-df_dropna = df.dropna()
-df_dropna_cols = df.dropna(thresh=0.8 * len(df), axis=1)
