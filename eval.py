@@ -10,9 +10,6 @@ from xgboost import XGBClassifier
 import seaborn as sns
 import matplotlib.pyplot as plt
 import joblib
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.callbacks import EarlyStopping, History
 df = pd.read_csv(r"C:\Users\HP\Documents\Master's thesis\collected data\collected data.csv")
 
 categorical_features = ["Project_name", "country"]
@@ -30,14 +27,12 @@ le = LabelEncoder()
 y = le.fit_transform(y)
 
 
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-
-eval_set = [(X_val, y_val)]  # Create a list of validation sets
+XX_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
 estimators = [
     ('encoder', TargetEncoder()),
     ("scaler", StandardScaler()),
-    ('clf', XGBClassifier(eval_set=eval_set, random_state=8))  # Pass eval_set here
+    ('clf', XGBClassifier(eval_set=[(X_val, y_val)], random_state=8))  
 ]
 pipe = Pipeline(steps = estimators)
 
@@ -55,34 +50,15 @@ Search_space = {
 
 opt = BayesSearchCV(pipe, Search_space, cv=3, n_iter=10, scoring='roc_auc', random_state=8)
 
-opt.fit(X_train, y_train)
 
-opt.score(X_val, y_val)
 
-xgboost_step = opt.best_estimator_.steps[2]
 
-y_pred = opt.best_estimator_.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-f1 = f1_score(y_test, y_pred)
-auc = roc_auc_score(y_test, y_pred)
-recall = recall_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
-tn = cm[0][0] 
-fp = cm[0][1]  
-specificity = tn / (tn + fp)
-print("Specificity:", specificity)
-print("Confusion Matrix:\n", cm)
-print("Accuracy:", accuracy)
-print("F1-Score:", f1)
-print("AUC-ROC:", auc)
-print("Recall:", recall)
-
-xgboost_model = opt.best_estimator_.steps[-1][1]  # Accessing the classifier step
+xgboost_model = opt.best_estimator_.steps[-1][1] 
 
 
 training_history = xgboost_model.evals_result_
 
-loss_history = training_history['validation_0']['loss']  # Assuming validation loss is tracked
+loss_history = training_history['validation_0']['loss']  
 accuracy_history = training_history['validation_0']['mean_accuracy']
 plt.plot(loss_history, label='Training Loss')
 plt.xlabel('Epoch')
@@ -97,23 +73,6 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Training Accuracy Over Epochs')
 plt.legend()
-
-# plt.show()
-# ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
-# ax.set_title('XGBoost Confusion Matrix')
-# ax.set_xlabel('Predicted Label')
-# ax.set_ylabel('True Label')
-# plt.show()
-# fpr, tpr, thresholds = roc_curve(y_test, y_pred)
-# auc = roc_auc_score(y_test, y_pred)
-# plt.plot(fpr, tpr, label='ROC Curve (area = %0.2f)' % auc)
-# plt.xlabel('False Positive Rate')
-# plt.ylabel('True Positive Rate')
-# plt.title('ROC Curve')
-# plt.legend()
-# plt.show()
-# model = opt.best_estimator_
-# joblib.dump(model, "prediction.model")
-
+plt.show()
 
 
