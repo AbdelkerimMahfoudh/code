@@ -28,7 +28,7 @@ y = le.fit_transform(y)
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-
+eval_set = [(X_test, y_test)]
 estimators = [
     ('encoder', TargetEncoder()),
     ("scaler", StandardScaler()),
@@ -71,19 +71,42 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
+
+xgboost_model = opt.best_estimator_.steps[-1][1] 
+
+
+training_history = xgboost_model.evals_result_
+
+loss_history = training_history['validation_0']['loss'] 
+accuracy_history = training_history['validation_0']['mean_accuracy']
+plt.plot(loss_history, label='Training Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training Loss Over Epochs')
+plt.legend()
+
+plt.figure()  
+
+plt.plot(accuracy_history, label='Training Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.title('Training Accuracy Over Epochs')
+plt.legend()
+
+# plt.show()
 # ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
 # ax.set_title('XGBoost Confusion Matrix')
 # ax.set_xlabel('Predicted Label')
 # ax.set_ylabel('True Label')
 # plt.show()
-fpr, tpr, thresholds = roc_curve(y_test, y_pred)
-auc = roc_auc_score(y_test, y_pred)
-plt.plot(fpr, tpr, label='ROC Curve (area = %0.2f)' % auc)
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('ROC Curve')
-plt.legend()
-plt.show()
+# fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+# auc = roc_auc_score(y_test, y_pred)
+# plt.plot(fpr, tpr, label='ROC Curve (area = %0.2f)' % auc)
+# plt.xlabel('False Positive Rate')
+# plt.ylabel('True Positive Rate')
+# plt.title('ROC Curve')
+# plt.legend()
+# plt.show()
 # model = opt.best_estimator_
 # joblib.dump(model, "prediction.model")
 
