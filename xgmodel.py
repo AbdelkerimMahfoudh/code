@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 from category_encoders.target_encoder import TargetEncoder
-from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix, roc_curve
 from xgboost import XGBClassifier
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -71,10 +71,18 @@ print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
 print("Recall:", recall)
-ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
-ax.set_title('XGBoost Confusion Matrix')
-ax.set_xlabel('Predicted Label')
-ax.set_ylabel('True Label')
+# ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
+# ax.set_title('XGBoost Confusion Matrix')
+# ax.set_xlabel('Predicted Label')
+# ax.set_ylabel('True Label')
+# plt.show()
+fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+auc = roc_auc_score(y_test, y_pred)
+plt.plot(fpr, tpr, label='ROC Curve (area = %0.2f)' % auc)
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend()
 plt.show()
 # model = opt.best_estimator_
 # joblib.dump(model, "prediction.model")

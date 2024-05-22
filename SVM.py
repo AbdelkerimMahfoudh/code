@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.svm import SVC  # Import SVC for SVM classifier
+from sklearn.svm import SVC  
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
 from sklearn.impute import SimpleImputer  
 import seaborn as sns
