@@ -5,11 +5,13 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 from category_encoders.target_encoder import TargetEncoder
-from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix, roc_curve
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, recall_score, confusion_matrix
 from xgboost import XGBClassifier
 import seaborn as sns
 import matplotlib.pyplot as plt
 import joblib
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
 df = pd.read_csv(r"C:\Users\HP\Documents\Master's thesis\collected data\collected data.csv")
 
 categorical_features = ["Project_name", "country"]
@@ -27,12 +29,12 @@ le = LabelEncoder()
 y = le.fit_transform(y)
 
 
-XX_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
 estimators = [
     ('encoder', TargetEncoder()),
     ("scaler", StandardScaler()),
-    ('clf', XGBClassifier(eval_set=[(X_val, y_val)], random_state=8))  
+    ('clf', XGBClassifier(random_state=8))
 ]
 pipe = Pipeline(steps = estimators)
 
@@ -49,30 +51,50 @@ Search_space = {
 }
 
 opt = BayesSearchCV(pipe, Search_space, cv=3, n_iter=10, scoring='roc_auc', random_state=8)
-
-
-
-
-xgboost_model = opt.best_estimator_.steps[-1][1] 
-
-
-training_history = xgboost_model.evals_result_
-
-loss_history = training_history['validation_0']['loss']  
-accuracy_history = training_history['validation_0']['mean_accuracy']
-plt.plot(loss_history, label='Training Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('Training Loss Over Epochs')
+evalset = [(X_train, y_train), (X_test,y_test)]
+opt.fit(X_train, y_train, eval_metric='logloss', eval_set=evalset)
+yhat = opt.predict(X_test)
+score = accuracy_score(y_test, yhat)
+results = opt.evals_result()
+plt.plot(results['validation_0']['logloss'], label='train')
+plt.plot(results['validation_1']['logloss'], label='test')
+# show the legend
 plt.legend()
-
-plt.figure()  
-
-plt.plot(accuracy_history, label='Training Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.title('Training Accuracy Over Epochs')
-plt.legend()
+# show the plot
 plt.show()
+
+
+# opt.fit(X_train, y_train)
+
+# opt.score(X_test, y_test)
+
+# xgboost_step = opt.best_estimator_.steps[2]
+
+# y_pred = opt.best_estimator_.predict(X_test)
+# accuracy = accuracy_score(y_test, y_pred)
+# f1 = f1_score(y_test, y_pred)
+# auc = roc_auc_score(y_test, y_pred)
+# recall = recall_score(y_test, y_pred)
+# cm = confusion_matrix(y_test, y_pred)
+# tn = cm[0][0] 
+# fp = cm[0][1]  
+# specificity = tn / (tn + fp)
+# print("Specificity:", specificity)
+# print("Confusion Matrix:\n", cm)
+# print("Accuracy:", accuracy)
+# print("F1-Score:", f1)
+# print("AUC-ROC:", auc)
+# print("Recall:", recall)
+
+
+
+# ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
+# ax.set_title('XGBoost Confusion Matrix')
+# ax.set_xlabel('Predicted Label')
+# ax.set_ylabel('True Label')
+# plt.show()
+# model = opt.best_estimator_
+# joblib.dump(model, "prediction.model")
+
 
 
