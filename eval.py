@@ -29,12 +29,13 @@ le = LabelEncoder()
 y = le.fit_transform(y)
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+evalset = [(X_val, y_val)]
 
 estimators = [
     ('encoder', TargetEncoder()),
     ("scaler", StandardScaler()),
-    ('clf', XGBClassifier(random_state=8))
+    ('clf', XGBClassifier(random_state=8, eval_metric='logloss'))
 ]
 pipe = Pipeline(steps = estimators)
 
@@ -50,11 +51,6 @@ search_space = {
 opt = RandomizedSearchCV(pipe, search_space, cv=3, n_iter=50, scoring='roc_auc', random_state=42)
 
 opt.fit(X_train, y_train)
-
-evalset = [(X_train, y_train), (X_test,y_test)]
-opt.fit(X_train, y_train, eval_metric='logloss', eval_set=evalset)
-yhat = opt.predict(X_test)
-score = accuracy_score(y_test, yhat)
 results = opt.evals_result()
 plt.plot(results['validation_0']['logloss'], label='train')
 plt.plot(results['validation_1']['logloss'], label='test')
