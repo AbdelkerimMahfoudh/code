@@ -62,8 +62,8 @@ xgboost_step = opt.best_estimator_.steps[2]
 # auc = roc_auc_score(y_test, y_pred)
 # recall = recall_score(y_test, y_pred)
 # cm = confusion_matrix(y_test, y_pred)
-tn = cm[0][0] 
-fp = cm[0][1]  
+# tn = cm[0][0] 
+# fp = cm[0][1]  
 specificity = tn / (tn + fp)
 print("Specificity:", specificity)
 print("Confusion Matrix:\n", cm)
