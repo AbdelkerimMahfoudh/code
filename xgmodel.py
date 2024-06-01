@@ -57,7 +57,7 @@ opt.score(X_test, y_test)
 xgboost_step = opt.best_estimator_.steps[2]
 
 # # y_pred = opt.best_estimator_.predict(X_test)
-# # accuracy = accuracy_score(y_test, y_pred)
+# accuracy = accuracy_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 auc = roc_auc_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
