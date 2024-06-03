@@ -23,14 +23,14 @@ numerical_features = ["backers_count", "goal", "pledged", "Average Contribution"
 scaler = StandardScaler()
 df[numerical_features] = scaler.fit_transform(df[numerical_features])
 
-# # X = df.drop(columns='state')
-# # y = df['state']  
-# # le = LabelEncoder()
-# # y = le.fit_transform(y)
+X = df.drop(columns='state')
+y = df['state']  
+le = LabelEncoder()
+y = le.fit_transform(y)
 
 
-# X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-# evalset = [(X_val, y_val)]
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+evalset = [(X_val, y_val)]
 
 estimators = [
     ('encoder', TargetEncoder()),
