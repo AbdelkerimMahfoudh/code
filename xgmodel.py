@@ -76,8 +76,8 @@ print("Recall:", recall)
 # ax.set_xlabel('Predicted Label')
 # ax.set_ylabel('True Label')
 # plt.show()
-# model = opt.best_estimator_
-# joblib.dump(model, "prediction.model")
+model = opt.best_estimator_
+joblib.dump(model, "prediction.model")
 
 
 
