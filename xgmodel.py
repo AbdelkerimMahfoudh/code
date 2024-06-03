@@ -73,7 +73,7 @@ print("AUC-ROC:", auc)
 print("Recall:", recall)
 # ax = sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
 # ax.set_title('XGBoost Confusion Matrix')
-# ax.set_xlabel('Predicted Label')
+ax.set_xlabel('Predicted Label')
 ax.set_ylabel('True Label')
 plt.show()
 model = opt.best_estimator_
