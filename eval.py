@@ -79,8 +79,8 @@ plt.show()
 # print("Confusion Matrix:\n", cm)
 # print("Accuracy:", accuracy)
 # print("F1-Score:", f1)
-# print("AUC-ROC:", auc)
-# print("Recall:", recall)
+print("AUC-ROC:", auc)
+print("Recall:", recall)
 
 
 
