@@ -60,11 +60,11 @@ plt.legend()
 plt.show()
 
 
-# opt.fit(X_train, y_train)
+opt.fit(X_train, y_train)
 
-# opt.score(X_test, y_test)
+opt.score(X_test, y_test)
 
-# xgboost_step = opt.best_estimator_.steps[2]
+xgboost_step = opt.best_estimator_.steps[2]
 
 y_pred = opt.best_estimator_.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
