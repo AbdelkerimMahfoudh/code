@@ -66,12 +66,12 @@ plt.show()
 
 # xgboost_step = opt.best_estimator_.steps[2]
 
-# y_pred = opt.best_estimator_.predict(X_test)
-# accuracy = accuracy_score(y_test, y_pred)
-# f1 = f1_score(y_test, y_pred)
-# auc = roc_auc_score(y_test, y_pred)
-# recall = recall_score(y_test, y_pred)
-# cm = confusion_matrix(y_test, y_pred)
+y_pred = opt.best_estimator_.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+auc = roc_auc_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+cm = confusion_matrix(y_test, y_pred)
 tn = cm[0][0] 
 fp = cm[0][1]  
 specificity = tn / (tn + fp)
