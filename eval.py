@@ -75,8 +75,8 @@ plt.show()
 # tn = cm[0][0] 
 # fp = cm[0][1]  
 # specificity = tn / (tn + fp)
-# print("Specificity:", specificity)
-# print("Confusion Matrix:\n", cm)
+print("Specificity:", specificity)
+print("Confusion Matrix:\n", cm)
 print("Accuracy:", accuracy)
 print("F1-Score:", f1)
 print("AUC-ROC:", auc)
