@@ -4,7 +4,6 @@ import axios from 'axios';
 function App() {
     const [formData, setFormData] = useState({
         country: '',
-        backers_count: '',
         goal: '',
     });
 
