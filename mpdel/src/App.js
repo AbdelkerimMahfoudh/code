@@ -6,8 +6,6 @@ function App() {
         country: '',
         backers_count: '',
         goal: '',
-        pledged: '',
-        Average_Contribution: ''
     });
 
     const [prediction, setPrediction] = useState(null);
