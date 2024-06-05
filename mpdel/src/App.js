@@ -33,12 +33,8 @@ function App() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input name="Project_name" value={formData.Project_name} onChange={handleChange} placeholder="Project Name" />
                 <input name="country" value={formData.country} onChange={handleChange} placeholder="Country" />
-                <input name="backers_count" value={formData.backers_count} onChange={handleChange} placeholder="Backers Count" />
                 <input name="goal" value={formData.goal} onChange={handleChange} placeholder="Goal" />
-                <input name="pledged" value={formData.pledged} onChange={handleChange} placeholder="Pledged" />
-                <input name="Average_Contribution" value={formData.Average_Contribution} onChange={handleChange} placeholder="Average Contribution" />
                 <button type="submit">Predict</button>
             </form>
             {prediction !== null && (
