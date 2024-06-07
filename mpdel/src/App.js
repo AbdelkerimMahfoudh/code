@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function App() {
-    const [formData, setFormData] = useState({
-        country: '',
-        goal: '',
-    });
+// function App() {
+//     const [formData, setFormData] = useState({
+//         country: '',
+//         goal: '',
+//     });
 
     const [prediction, setPrediction] = useState(null);
 
