@@ -48,7 +48,7 @@ Search_space = {
     'clf__gamma': Real(0.0, 10.0),
 }
 
-# opt = BayesSearchCV(pipe, Search_space, cv=3, n_iter=10, scoring='roc_auc', random_state=8)
+opt = BayesSearchCV(pipe, Search_space, cv=3, n_iter=10, scoring='roc_auc', random_state=8)
 
 opt.fit(X_train, y_train)
 
