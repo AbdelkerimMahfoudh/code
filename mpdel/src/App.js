@@ -9,22 +9,22 @@ function App() {
 
     const [prediction, setPrediction] = useState(null);
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+    // const handleChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value
+    //     });
+    // };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://127.0.0.1:5000/predict', formData);
-            setPrediction(response.data.prediction);
-        } catch (error) {
-            console.error('Error making prediction:', error);
-        }
-    };
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('http://127.0.0.1:5000/predict', formData);
+    //         setPrediction(response.data.prediction);
+    //     } catch (error) {
+    //         console.error('Error making prediction:', error);
+    //     }
+    // };
 
     return (
         <div>
