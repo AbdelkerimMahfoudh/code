@@ -7,7 +7,7 @@ function App() {
         goal: '',
     });
 
-    const [prediction, setPrediction] = useState(null);
+    // const [prediction, setPrediction] = useState(null);
 
     const handleChange = (e) => {
         setFormData({
